@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel= "stylesheet" type= "text/css" href="{{ url_for('static',filename='stylesheets/styles.css') }}">
+  <title>Catalog</title>
+</head>
+
+<body>
+
+  <header>
+    <div class="header_inner">
+      <a href="{{url_for('showCatalog')}}">
+        <h1 class="header_title">Catalog App</h1>
+      </a>
+      <div class="login">
+        <form method="GET" action="{{ url_for('login') }}">
+            <button type="Submit">Login</button>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="flex-container content">
+      <div class="categories box_items">
+        <h2>Categories</h2>
+        {% for category in categories %}
+        <p><a href="{{url_for('showItems', category_name=category.name)}}">{{category.name}}</a></p>
+        {% endfor %}
+      </div>
+      <div class="latest_items box_items">
+        <h2>Latest Items</h2>
+        {% for item in latest_items %}
+        <p><a href="{{url_for('itemInfo', category_name=item.category_name, item_name=item.name)}}">{{item.name}}</a></p>
+        {% endfor %}
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>

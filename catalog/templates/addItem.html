@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel= "stylesheet" type= "text/css" href="{{ url_for('static',filename='stylesheets/styles.css') }}">
+  <title>Catalog</title>
+</head>
+
+<body>
+
+  <header>
+    <div class="header_inner">
+      <a href={{url_for('showCatalog')}}>
+        <h1 class="header_title">Catalog App</h1>
+      </a>
+      <div class="login">
+        <form method="GET" action="{{ url_for('login') }}">
+            <button type="Submit">Login</button>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="flex-container content">
+      <div class="form">
+        <h2>Add Item</h2>
+        <form action="{{url_for('addItem')}}" method="POST" id="addItem">
+          <fieldset>
+            <p>Title</p>
+            <input type="text" name="title">
+            <p>Description</p>
+            <input type="text" name="description">
+            <p>Category</p>
+            <select name="category" form="addItem"
+              <option value=""></option>
+              {% for category in categories %}
+              <option value="{{category.name}}">{{category.name}}</option>
+              {% endfor %}
+            </select></br></br>
+            <input type="submit" name="submit">
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+header,
+body,
+footer {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  background-color: LightGrey;
+}
+
+header {
+  width: 100%;
+  background-color: MidnightBlue;
+}
+
+h2 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: MidnightBlue;
+}
+
+fieldset {
+  box-sizing: border-box;
+  border: none;
+  padding: 0px;
+}
+
+p {
+  margin: 0px;
+  padding-top: 0px;
+  padding-bottom: 4px;
+}
+
+.header_title {
+  display: inline-block;
+  padding: 10px;
+  margin: 0px;
+  align: left;
+  color: white;
+  font-size: 35px;
+}
+
+.login {
+  display: inline-block;
+  float: right;
+  padding: 10px;
+  line-height: 40px;
+}
+
+.content {
+  margin-top: 15px;
+  background-color: white;
+  border-style: solid;
+  border-width: 1px;
+  min-height: 200px;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.box_items {
+  margin: 10px;
+}
+
+.form {
+  margin: 10px;
+}
+
+.categories {
+  width: 33%;
+  border-right: 1px solid black;
+}
+
+.description {
+  padding-top: 5px;
+  padding-bottom: 15px;
+}
+
+@media screen and (min-width: 1000px) {
+  main {
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .header_inner {
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

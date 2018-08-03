@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel= "stylesheet" type= "text/css" href="{{ url_for('static',filename='stylesheets/styles.css') }}">
+  <title>Edit Category</title>
+</head>
+
+<body>
+
+  <header>
+    <div class="header_inner">
+      <a href={{url_for('showCatalog')}}>
+        <h1 class="header_title">Catalog App</h1>
+      </a>
+      <div class="login">
+    </div>
+  </header>
+
+  <main>
+    <div class="flex-container content">
+      <div class="form">
+        <h2>Edit Category</h2>
+        <form action="{{url_for('editCategory', category_name=category_name)}}" method="POST">
+            <p>Title</p>
+            <input type="text" name="title"></br></br>
+            <input type="submit" name="submit">
+        </form>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

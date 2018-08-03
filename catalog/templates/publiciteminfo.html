@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel= "stylesheet" type= "text/css" href="{{ url_for('static',filename='stylesheets/styles.css') }}">
+  <title>Catalog</title>
+</head>
+
+<body>
+
+  <header>
+    <div class="header_inner">
+      <a href={{url_for('showCatalog')}}>
+        <h1 class="header_title">Catalog App</h1>
+      </a>
+      <div class="login">
+        <form method="GET" action="{{ url_for('login') }}">
+            <button type="Submit">Login</button>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="content">
+      <div class="item_description box_items">
+        <h2>{{item.name}}</h2>
+          <p class="description">{{item.description}}</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>
