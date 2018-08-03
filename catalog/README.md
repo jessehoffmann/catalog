@@ -1,4 +1,4 @@
-#Catalog Project
+# Catalog Project
 This web application was designed as a generic website for catalogs. The program demonstrates frontend and backend (including databases and api calls) skills.
 Once set up on the users computer it can be used to store category and item information.
 
