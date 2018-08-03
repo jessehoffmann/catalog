@@ -145,10 +145,10 @@ def createUser(login_session):
 
 
 def getUserID(email):
-    try:
-        user = session.query(User).filter_by(email=email).one()
+    if session.query(User).filter_by(email=email).first() is not None:
+        user = session.query(User).filter_by(email=email).first()
         return user.email
-    except Error:
+    else:
         return None
 
 
