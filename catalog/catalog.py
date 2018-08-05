@@ -11,8 +11,6 @@ class User(Base):
     # email is used as the unique identifer for user
     email = Column(String, primary_key=True)
     picture = Column(String)
-    id = Column(Integer, primary_key=True)
-
 
 class Category(Base):
     __tablename__ = 'categories'
