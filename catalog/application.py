@@ -166,7 +166,7 @@ def getUserID(email):
 
 @app.route('/gdisconnect')
 def gdisconnect():
-    #Disconnects a connected user.
+    # Disconnects a connected user.
     access_token = login_session.get('access_token')
     if access_token is None:
         response = make_response(
@@ -220,7 +220,7 @@ def showCatalogJSON():
 @app.route('/')
 @app.route('/catalog')
 def showCatalog():
-    #displays category data from catalog including recently created items
+    # displays category data from catalog including recently created items
     latest_items = session.query(Item).order_by(desc(Item.id)).limit(8)
     categories = session.query(Category.name).all()
     if 'username' not in login_session:
@@ -235,16 +235,16 @@ def showCatalog():
 
 @app.route('/catalog/addcategory', methods=['GET', 'POST'])
 def addCategory():
-    #add a cateogry to the database
+    # add a cateogry to the database
     if request.method == 'GET':
         # check is their is someone logged in
         if 'username' not in login_session:
             return redirect(url_for('showCatalog'))
         return render_template('addCategory.html')
     else:
-        #attain cateogry name from html file and create row in database
+        # attain cateogry name from html file and create row in database
         category = request.form['title']
-        #if category name is blank refresh page
+        # if category name is blank refresh page
         if category is None:
             return render_template('addCategory.html')
         else:
@@ -257,10 +257,10 @@ def addCategory():
 
 @app.route('/catalog/<category_name>/edit', methods=['GET', 'POST'])
 def editCategory(category_name):
-    #edit a cateogry in the database
+    # edit a cateogry in the database
     category = session.query(Category).filter_by(name=category_name).one()
     if request.method == 'GET':
-        #checks if user created cateogry (has permission to edit)
+        # checks if user created cateogry (has permission to edit)
         if ('username' not in login_session
                 or login_session['email'] != category.user_id):
                 return redirect(url_for('showItems',
@@ -284,12 +284,13 @@ def editCategory(category_name):
             return redirect(url_for('showItems',
                             category_name=new_name))
 
+
 @app.route('/catalog/<category_name>/delete', methods=['GET', 'POST'])
 def deleteCategory(category_name):
     category = session.query(Category)\
         .filter_by(name=category_name).first()
     if request.method == 'GET':
-        #checks if user created cateogry (has permission to delete)
+        # checks if user created cateogry (has permission to delete)
         if ('username' not in login_session
                 or login_session['email'] != category.user_id):
             return redirect(url_for('showCatalog'))
@@ -299,7 +300,7 @@ def deleteCategory(category_name):
     else:
         items = session.query(Item)\
             .filter_by(category_name=category_name).all()
-        #also deletes all items in category base on reference in catalog.py
+        # also deletes all items in category base on reference in catalog.py
         session.delete(category)
         session.commit()
         return redirect(url_for('showCatalog'))
@@ -313,7 +314,7 @@ def showItems(category_name):
     count = session.query(Item).filter_by(category_name=category_name).count()
     category = session.query(Category)\
         .filter_by(name=category_name).first()
-    #checks if a user is logged in (has permission to create/edit/delete)
+    # checks if a user is logged in (has permission to create/edit/delete)
     if ('username' not in login_session
             or login_session['email'] != category.user_id):
             return render_template('publicshowItems.html',
@@ -330,7 +331,7 @@ def showItems(category_name):
 def addItem():
     categories = session.query(Category.name)
     if request.method == 'GET':
-        #check if a user is logged in
+        # check if a user is logged in
         if 'username' not in login_session:
             return redirect(url_for('showCatalog'))
         return render_template('addItem.html', categories=categories)
@@ -338,13 +339,13 @@ def addItem():
         title = request.form['title']
         description = request.form['description']
         category = request.form['category']
-        #only allows item to be added if all forms have been filled out
+        # only allows item to be added if all forms have been filled out
         if title is None or description is None or category is None:
             return redirect(url_for('showCatalog'))
         else:
-            #create new item from name
+            # create new item from name
             item = Item(name=title)
-            #add description and cateogory to item
+            # add description and cateogory to item
             item.description = description
             item.category_name = category
             session.add(item)
@@ -354,7 +355,7 @@ def addItem():
 
 @app.route('/catalog/<category_name>/<item_name>')
 def itemInfo(category_name, item_name):
-    #displays the description of specific item and links to edit/delete
+    # displays the description of specific item and links to edit/delete
     item = session.query(Item).filter_by(name=item_name).one()
     if ('username' not in login_session
             or login_session['email'] != item.user_id):
@@ -371,7 +372,7 @@ def editItem(category_name, item_name):
     categories = session.query(Category.name)
     item = session.query(Item).filter_by(name=item_name).one()
     if request.method == 'GET':
-        #check if a user is logged in and has permission
+        # check if a user is logged in and has permission
         if ('username' not in login_session
                 or login_session['email'] != item.user_id):
                 return redirect(url_for('showItems',
@@ -382,12 +383,12 @@ def editItem(category_name, item_name):
         title = request.form['title']
         description = request.form['description']
         category = request.form['category']
-        #can only edit item when all forms have been filled
+        # can only edit item when all forms have been filled
         if not title or not description or not category:
             return redirect(url_for('itemInfo', category_name=category_name,
                                     item_name=item_name))
         else:
-            #replace item info
+            # replace item info
             item.name = title
             item.description = description
             item.category_name = category
@@ -400,11 +401,11 @@ def editItem(category_name, item_name):
 @app.route('/catalog/<category_name>/<item_name>/delete',
            methods=['GET', 'POST'])
 def deleteItem(category_name, item_name):
-    #delete a specific item
+    # delete a specific item
     categories = session.query(Category.name)
     item = session.query(Item).filter_by(name=item_name).first()
     if request.method == 'GET':
-        #check if a user is logged in and has permission
+        # check if a user is logged in and has permission
         if ('username' not in login_session
                 or login_session['email'] != item.user_id):
                 return redirect(url_for('showItems',
@@ -416,7 +417,8 @@ def deleteItem(category_name, item_name):
         session.commit()
         return redirect(url_for('showItems', category_name=category_name))
 
-#execute code only when module is run as program
+
+# execute code only when module is run as program
 if __name__ == "__main__":
     app.secret_key = 'super_secret_key'
     app.debug = True
