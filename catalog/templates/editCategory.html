@@ -13,6 +13,10 @@
         <h1 class="header_title">Catalog App</h1>
       </a>
       <div class="login">
+        <form method="GET" action="{{ url_for('gdisconnect') }}">
+            <button type="Submit">Logout</button>
+        </form>
+      </div>
     </div>
   </header>
 

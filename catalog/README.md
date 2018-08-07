@@ -28,7 +28,7 @@ python catalog.py
 ```
 followed by
 ```
-python applocation.py
+python application.py
 ```
 
 Finally, navigate to a web browser and enter "localhost:8000" and enjoy navigating/adding to the application.
