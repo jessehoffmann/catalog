@@ -22,7 +22,7 @@ followed by
 vagrant ssh
 ```
 
-Then navigate to the project folder. From there execute the following:
+From there execute the following:
 ```
 python catalog.py
 ```

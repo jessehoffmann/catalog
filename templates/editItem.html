@@ -31,7 +31,7 @@
             <p>Description</p>
             <input type="text" name="description">
             <p>Category</p>
-            <select name="category" form="addItem"
+            <select name="category" form="addItem">
               <option value=""></option>
               {% for category in categories %}
               <option value="{{category.name}}">{{category.name}}</option>
