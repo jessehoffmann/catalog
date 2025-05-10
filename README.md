@@ -3,35 +3,48 @@ This web application was designed as a generic website for catalogs. The program
 Once set up on the users computer it can be used to store category and item information.
 
 ## Requirements
-You need Python installed on your OS to execute the program. Any version after 2.7 will do.
-
-Installation packages can be found here:
-https://www.python.org/getit/
-
-You will also need to download virtual machine and vagrant, which will provide you the PostgreSQL database as well as an environment to run the project in. These two pieces of software can be downloaded here:
-https://www.virtualbox.org/wiki/Download_Old_Builds_5_2
-https://www.vagrantup.com/
+You need Docker and Docker Compose installed on your system to run this application. You can download them from:
+- Docker: https://docs.docker.com/get-docker/
+- Docker Compose: https://docs.docker.com/compose/install/
 
 ## Deployment
-To run the program execute the following from within the Catalog Project directory in the shell:
-```
-vagrant up
-```
-followed by
-```
-vagrant ssh
+To run the program, execute the following from within the Catalog Project directory in the shell:
+
+```bash
+# Build and start the containers
+docker-compose up --build
+
+# To run in detached mode (in the background)
+docker-compose up -d --build
 ```
 
-From there execute the following:
-```
-python catalog.py
-```
-followed by
-```
-python application.py
+The application will be available at http://localhost:8000
+
+To stop the application:
+```bash
+docker-compose down
 ```
 
-Finally, navigate to a web browser and enter "localhost:8000" and enjoy navigating/adding to the application.
+To stop the application and remove all data (including the database):
+```bash
+docker-compose down -v
+```
+
+## Development
+The application uses:
+- Python 3.9
+- PostgreSQL 13
+- Redis 6
+
+The application code is mounted as a volume, so any changes to the code will be reflected immediately without rebuilding the container.
+
+### Features
+- Automatic health checks for database and Redis
+- Wait-for-it script ensures database is ready before starting the application
+- Non-root user for improved security
+- Automatic container restart on failure
+- Named volumes and networks for better management
+- Development mode enabled by default
 
 ## Credit
 Some of the code from gconnect() function was copied from notes I had taken in the Udacity classroom. Credit goes to the owner.

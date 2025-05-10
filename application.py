@@ -36,7 +36,7 @@ CLIENT_ID = json.loads(
 def login():
     # create unique string that will be used as token
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
-                    for x in xrange(32))
+                    for x in range(32))
     # use session for temporary storage of user info
     login_session['state'] = state
     return render_template('login.html', STATE=state)
