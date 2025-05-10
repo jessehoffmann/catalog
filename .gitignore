@@ -1,0 +1,10 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Docker
+docker-compose.override.yml 
+
+# Database
+catalog.db
