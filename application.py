@@ -19,7 +19,11 @@ from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 import json
 import requests
+import os
+from dotenv import load_dotenv
+from oauth_config import oauth_config
 
+load_dotenv()
 
 engine = create_engine('sqlite:///catalog.db?check_same_thread=False')
 Base.metadata.create_all(engine)
@@ -28,15 +32,14 @@ session = DBsession()
 app = Flask(__name__)
 
 # for Google user authentication
-CLIENT_ID = json.loads(
-    open('client_secrets.json', 'r').read())['web']['client_id']
+CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     # create unique string that will be used as token
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
-                    for x in xrange(32))
+                    for x in range(32))
     # use session for temporary storage of user info
     login_session['state'] = state
     return render_template('login.html', STATE=state)
@@ -59,8 +62,8 @@ def gconnect():
     code = request.data
 
     try:
-        # authorization code is exchanged for a credentials object
-        oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+        # Create OAuth flow from configuration
+        oauth_flow = flow_from_clientsecrets(oauth_config, scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
